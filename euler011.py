@@ -4,12 +4,12 @@ grid = []
 
 # Open file with memory management
 with open("euler011_data.txt") as data:
-    for line in data:
+	for line in data:
 		# Declare empty list
-        row = []
-        for number in line.split(" "):
-            row.append( int(number) )
-        grid.append(row)
+		row = []
+		for number in line.split(" "):
+			row.append( int(number) )
+		grid.append(row)
 
 # Rows are naturally obtained as a list
 # now we need to get columns the same way:	
