@@ -1,13 +1,25 @@
 # Fill a grid with the values
+# Declare grid as empty list
 grid = []
-with open("euler011_data.txt") as fp:
-    for line in fp:
+
+# Open file with memory management
+with open("euler011_data.txt") as data:
+    for line in data:
+		# Declare empty list
         row = []
         for number in line.split(" "):
             row.append( int(number) )
         grid.append(row)
 
-def hor_value():
+# Rows are naturally obtained as a list
+# now we need to get columns the same way:	
+def getcolumn(index):
+	col = []
+	for row in grid:
+		col.append( row[index] )
+	return col
+	
+def highest_horizonta_value():
 	max_product = 0
 	tmp_product = 0
 	for row in grid:
@@ -16,13 +28,7 @@ def hor_value():
 			if tmp_product > max_product: max_product = tmp_product
 	return max_product
 	
-def getcolumn(index):
-	col = []
-	for row in grid:
-		col.append( row[index] )
-	return col
-
-def ver_value():
+def highest_vertical_value():
 	max_product = 0
 	tmp_product = 0
 	for i in xrange( len(grid[0]) ):
@@ -32,25 +38,27 @@ def ver_value():
 			if tmp_product > max_product: max_product = tmp_product
 	return max_product
 
-def dia_value1():
+def highest_diagonal_value():
 	max_product = 0
 	tmp_product = 0
 	for row in xrange( len(grid) - 3 ):
 		for col in xrange( len(grid[row]) - 3 ):
-			tmp_product = ( grid[row][col] * grid[row+1][col+1] * grid[row+2][col+2] * grid[row+3][col+3] )
+			tmp_product = ( grid[row][col] * grid[row+1][col+1] 
+						  * grid[row+2][col+2] * grid[row+3][col+3] )
 			if tmp_product > max_product: max_product = tmp_product
 	return max_product
 	
-def dia_value2():
+def highest_diagonal_value_inverted():
 	max_product = 0
 	tmp_product = 0
 	for row in xrange( len(grid) - 3 ):
 		for col in xrange( len(grid[row]) - 3 ):
-			tmp_product = ( grid[row][col+3] * grid[row+1][col+2] * grid[row+2][col+1] * grid[row+3][col] )
+			tmp_product = ( grid[row][col+3] * grid[row+1][col+2] 
+							* grid[row+2][col+1] * grid[row+3][col] )
 			if tmp_product > max_product: max_product = tmp_product
 	return max_product
 	
-print hor_value()	
-print ver_value()
-print dia_value1()
-print dia_value2()
+print highest_horizonta_value()	
+print highest_vertical_value()
+print highest_diagonal_value()
+print highest_diagonal_value_inverted()
