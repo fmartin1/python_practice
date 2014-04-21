@@ -16,7 +16,7 @@ def hor_value():
 			if tmp_product > max_product: max_product = tmp_product
 	return max_product
 	
-def getcol(index):
+def getcolumn(index):
 	col = []
 	for row in grid:
 		col.append( row[index] )
@@ -26,7 +26,7 @@ def ver_value():
 	max_product = 0
 	tmp_product = 0
 	for i in xrange( len(grid[0]) ):
-		col = getcol(i)
+		col = getcolumn(i)
 		for j in xrange( len(col) - 3 ):
 			tmp_product = ( col[j] * col[j+1] * col[j+2] * col[j+3] )
 			if tmp_product > max_product: max_product = tmp_product
