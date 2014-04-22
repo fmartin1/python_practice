@@ -1,40 +1,42 @@
-import math
-max_value = 999999999999999999999999999999
-num_of_divisors = 200
-tri_num = 28
-nat_num = 3
-x = 0
-
-def divisorsof(x):
-    result = 1
-    list = []
-    for divisor in range( 2, x ):
-        if x % divisor == 0: 
-            result += 1
-            if prime(divisor): list.append(divisor)
-    print x,result,"\tdivisors in total","prime divisors",list
-    return result
+def factorsof(number):
+    div = number
+    last_factor = 1
+    # First factor
+    factors = set()
+    factors.add(1)
+    factors.add(number)
+    
+    while True:
+        # Get the next factor that can divide the number
+        if div == number:
+            p = nextDividend(div,last_factor+1)
+            last_factor = p
+        else:
+            p = nextDividend(div,2)
+        if p == 0:
+            break
+        
+        factors.add(p)
+        div = div / p
+        factors.add(div)
+        if nextDividend(div,2) == 0:
+            p = 1
+            div = number
+    return len(factors)
+            
+def nextDividend(number,last):
+    for x in range(last, number):
+        if number % x == 0:
+            return x
+    return 0
 
 def triangleNum(x):
     return (x * (x+1) ) / 2
 
-def prime(x):
-    x = abs(int(x))
-    # 0 and 1 are not primes
-    if x < 2:
-        return False
-    # 2 is the only even prime number
-    if x == 2: 
-        return True    
-    # all other even numbers are not primes
-    if not x & 1: 
-        return False
-    # range starts with 3 and only needs to go up the squareroot of n
-    # for all odd numbers
-    for number in range(3, int(x**0.5)+1, 2):
-        if x % number == 0:
-            return False
-    return True
-    
-for i in range(1,200):
-    divisorsof(i)
+
+nat_num = 1150
+facs = 0
+while facs <= 500:
+    facs = factorsof( triangleNum(nat_num) )
+    nat_num += 1
+    print facs,"\t",nat_num
